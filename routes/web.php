@@ -12,5 +12,6 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('layouts.index');
 });
+ Route::resource('users','UserController');
