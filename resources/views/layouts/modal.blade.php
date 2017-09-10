@@ -8,32 +8,38 @@
                 <h4 class="modal-title">Adding User</h4>
             </div>
             <div class="modal-body">
-                <form name="form" class="form-horizontal">
+                <form name="form_add" class="form-horizontal">
                     <div class="form-group">
                         <label for="inputEmail3" class="col-sm-3 control-label">Name</label>
                         <div class="col-sm-9">
                             {{--input name="name" ng-model="soundcloud.song.name" --}}
-                            <input type="text" class="form-control" id="name" name="name"
-                                   placeholder="Type name of song" ng-model="soundcloud.song.name" ng-required="true"/>
-                            <span id="helpBlock2" class="help-block" ng-show="formAddsong.name.$error.required">Type name of song</span>
+                            <input type="text" class="form-control" id="name" name="name" ng-model="name" required ng-minlength="5" ng-maxlength="10" />
+                            <span id="helpBlock2" class="help-block" ng-show="form_add.name.$error.required">Type name of song</span>
+                            <span id="helpBlock2" class="help-block" ng-show="form_add.name.$error.minlength">min length</span>
+                            <span id="helpBlock2" class="help-block" ng-show="form_add.name.$error.maxlength">max length</span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-3 control-label">Link song</label>
+                        <label for="inputEmail3" class="col-sm-3 control-label">Age</label>
                         <div class="col-sm-9">
                             {{--input name="song" ng-model="soundcloud.song.song" --}}
-                            <input type="text" class="form-control" id="age" name="link_music"
-                                   placeholder="http://" ng-model="soundcloud.song.link_music" ng-required="true">
-                            <span id="helpBlock2" class="help-block" ng-show="formAddsong.link_music.$error.required">Link of song</span>
+                            <input type="number" class="form-control" id="age" name="age"
+                                   ng-model="age" ng-required="true" min="1" max="99" >
+                            <span id="helpBlock2" class="help-block" ng-show="form_add.age.$error.required">Age is required!</span>
+                            <span id="helpBlock2" class="help-block" ng-show="form_add.age.$error.number">Not valid number!</span>
+                            <span id="helpBlock2" class="help-block" ng-show="form_add.age.$error.min||form_add.age.$error.max">Age must be 2 digit</span>
+
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-3 control-label">Image</label>
+                        <label for="inputEmail3" class="col-sm-3 control-label">Address</label>
                         <div class="col-sm-9">
                             {{--input name="image" ng-model="soundcloud.song.image" --}}
-                            <input type="text" class="form-control" id="email" name="link_img"
-                                   placeholder="http://" ng-model="soundcloud.song.link_img" ng-required="true"/>
-                            <span id="helpBlock2" class="help-block" ng-show="formAddsong.link_img.$error.required">Link image of song</span>
+                            <textarea  class="form-control" id="address" name="address"
+                                      ng-model="address" ng-required="true" ng-minlength="0" ng-maxlength="300"  > </textarea>
+                            <span  class="alert danger" ng-show="form_add.address.$error.required">Adress is required!</span >
+                            <span  class="alert danger" ng-show="form_add.address.$error.minlength">Adress must be in ranger 1 to 300 digit</span>
+                            <span  class="alert danger" ng-show="form_add.address.$error.maxlength">Adress must be in ranger 1 to 300 digit</span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -51,7 +57,7 @@
                 <% soundcloud.song %>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" ng-click="soundcloud.save()">Lưu</button>
+                <button type="button" class="btn btn-primary" >Lưu</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
