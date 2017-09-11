@@ -21,6 +21,8 @@ myApp.directive('ngFiles', ['$parse', function ($parse) {
 
 //Controller
 myApp.controller('DemoController', function ($scope, $http) {
+    var scope = $scope;
+
 
     $scope.modal = function () {
       $('#myModal').modal('show');
@@ -28,27 +30,35 @@ myApp.controller('DemoController', function ($scope, $http) {
 
     var formdata = new FormData();
     $scope.getTheFiles = function ($files) {
-        console.log($files); // get file immediately after input
+        angular.forEach($files,function (value,key) {
+            console.log(value);
+            console.log(key);
+            formdata.append('file',value);
+        });
+        formdata.append('name',$scope.users.name);
+        formdata.append('age',$scope.users.age);
+        formdata.append('address',$scope.users.address)
+
     };
 
     // NOW UPLOAD THE FILES.
     $scope.uploadFiles = function () {
-
         var request = {
             method: 'POST',
             url: 'http://localhost/test_app2/public/users',
-            data: formdata,
+            data: {
+                file:formdata
+            },
             headers: {
                 'Content-Type': undefined
             }
         };
-
+        console.log($scope.users.name);
+        console.log(request);
         // SEND THE FILES.
-        $http(request)
-            .success(function (d) {
-                alert(d);
-            })
-            .error(function () {
-            });
+        $http.post('http://localhost/test_app2/public/users', formdata, {
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}
+        })
     }
 });
