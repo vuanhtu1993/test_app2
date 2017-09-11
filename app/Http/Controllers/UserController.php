@@ -40,9 +40,8 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->age = $request->age;
         $user->address = $request->address;
-        $file  = $request->file();
+        $file  = $request->file;
         $destinationPath = 'uploads';
-        dd($file);
         $file->move($destinationPath,$file->getClientOriginalName());
             $user->link = $file->getClientOriginalName();
             $user->save();
