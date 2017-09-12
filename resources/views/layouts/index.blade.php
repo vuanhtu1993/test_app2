@@ -11,7 +11,7 @@
     <script src="angular/demo.js"></script>
 </head>
 
-<body ng-app="myApp" ng-controller="DemoController as demo">
+<body ng-app="myApp" ng-controller="DemoController">
 
 @include('layouts.header')
 <div class="container">
@@ -67,5 +67,21 @@
 
 <script src="js/jquery-3.2.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah')
+                    .attr('src', e.target.result)
+                    .width(150)
+                    .height(200);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
 </body>
 </html>

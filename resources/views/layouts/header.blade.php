@@ -27,7 +27,7 @@
             </div>
             {{--end search--}}
             <ul class="nav navbar-nav navbar-right">
-                <li><a style="color: rgb(89, 205, 227); font-weight: bold" href="#" ng-click="demo.modal()">Link</a></li>
+                <li><a style="color: rgb(89, 205, 227); font-weight: bold" href="#" ng-click="modal()">Link</a></li>
                 <li class="dropdown">
                     <a style="color: orange; font-weight: bold" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">Dropdown <span class="caret"></span></a>
