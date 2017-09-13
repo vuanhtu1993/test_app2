@@ -56,7 +56,7 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->age = $request->age;
         $user->address = $request->address;
-        if($request->file != 'undefined'){
+        if($request->hasFile('file')){
             $file  = $request->file;
             $destinationPath = 'uploads';
             $file->move($destinationPath,$file->getClientOriginalName());
