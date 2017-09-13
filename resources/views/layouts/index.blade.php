@@ -1,5 +1,6 @@
 <html>
 <head>
+    <meta content="{{URL::asset('')}}" name="website" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>Angular-Laravel</title>
@@ -7,8 +8,6 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="css/style.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
-    <script src="angular/demo.js"></script>
 </head>
 
 <body ng-app="myApp" ng-controller="DemoController">
@@ -55,6 +54,11 @@
 
 <script src="js/jquery-3.2.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+<script src="angular/ng-file-upload-all.min.js"></script>
+<script src="angular/ng-file-upload-shim.min.js"></script>
+<script src="angular/ng-file-upload.min.js"></script>
+<script src="angular/demo.js"></script>
 <script>
     function readURL(input) {
         if (input.files && input.files[0]) {
