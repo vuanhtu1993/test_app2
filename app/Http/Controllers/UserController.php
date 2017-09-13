@@ -36,11 +36,12 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+
         $this->validate($request,[
             'name'=>'required|max:100',
             'age'=>'required|numeric|min:0|max:100',
             'address'=>'required|max:300',
-            'file'=>'required|image|mimes:jpeg,png,gif|max:10240'
+
         ],[
             'name.required'=>'Type name product please',
             'name.max'=>'Name product maximum 100 digit',
@@ -55,11 +56,18 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->age = $request->age;
         $user->address = $request->address;
-        $file  = $request->file;
-        $destinationPath = 'uploads';
-        $file->move($destinationPath,$file->getClientOriginalName());
+        if($request->file != 'undefined'){
+            $file  = $request->file;
+            $destinationPath = 'uploads';
+            $file->move($destinationPath,$file->getClientOriginalName());
             $user->link = $file->getClientOriginalName();
             $user->save();
+        }
+        else {
+            $user->link = 'No_image.jpg';
+            $user->save();
+        }
+
     }
 
     /**
