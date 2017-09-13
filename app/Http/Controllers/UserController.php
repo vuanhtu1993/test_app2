@@ -14,7 +14,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('users.index');
+        $users = \DB::table('users')->orderBy('id','desc')->get();
+        return view('users.index',compact('users'));
     }
 
     /**
@@ -35,6 +36,20 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request,[
+            'name'=>'required|max:100',
+            'age'=>'required|numeric|min:0|max:100',
+            'address'=>'required|max:300',
+            'file'=>'required|image|mimes:jpeg,png,gif|max:10240'
+        ],[
+            'name.required'=>'Type name product please',
+            'name.max'=>'Name product maximum 100 digit',
+            'age.required'=>'Type price product please',
+            'age.numeric'=>'Price product is number',
+            'age.max'=>'Price product maximum 10 digit',
+            'address.required'=>'Type description product please',
+            'address.max'=>'Description maximum 300 digit',
+        ]);
 
         $user = new User();
         $user->name = $request->name;

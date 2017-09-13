@@ -14,6 +14,7 @@ myApp.directive('ngFiles', ['$parse', function ($parse) {
 
     return {
         link: fn_link
+
     }
 } ]);
 
@@ -40,6 +41,7 @@ myApp.controller('DemoController', function ($scope, $http) {
 
     var formdata = new FormData();
     $scope.getTheFiles = function ($files) {
+
         angular.forEach($files,function (value,key) {
             console.log(value);
             console.log(key);
@@ -59,7 +61,10 @@ myApp.controller('DemoController', function ($scope, $http) {
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}
         })
-            .then($scope.close_modal())
-            .then($scope.load());
+            .then(function () {
+                $scope.close_modal();
+                $scope.load();
+            })
+            .then()
     }
 });

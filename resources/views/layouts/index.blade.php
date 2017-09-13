@@ -20,49 +20,37 @@
     </div>
     <div class="row" style="margin-top: 20px">
         <div class="contents">
-            <div class="col-xs-3 col-sm-3 col-md-3">
-                {{--menu left--}}
-                <div class="menu-left">
-                    <ul> User
-                        <li><a href=""></a>Add</li>
-                        <li>Add</li>
-                        <li>Add</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-xs-9 col-sm-9 col-md-9">
-                <div class="users-page" >
-                    <div class="row">
-                        <div class="user-info">
-                            <div class="col-xs-4 col-sm-4 col-sm-4">
-                                <div class="image-user">
-                                    image
+            <div>
+                <div class="users-page">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Information</th>
+                            <th style="text-align: center">Image</th>
+                            <th>Edit/Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="user in users">
+                            <th><% user.id %></th>
+                            <td><% user.name %> <br>
+                                <% user.age %> <br>
+                                <% user.address %>
+                            </td>
+                            <td style="width: 30%"><img style="width: 100%;" src="uploads/<% user.link %>" alt=""></td>
 
-                                </div>
-                            </div>
-                            <div class="col-xs-6 col-sm-6 col-md-6">
-                                <div class="user-name">
-                                    name
-                                </div>
-                            </div>
-                            <div class="col-xs-2 col-sm-2 col-md-2">
-                                <div class="edit">
-                                    edit
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                            <td>EDIT/DELETE</td>
+
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
     @include('layouts.modal')
 </div>
-
-
-
-
-
 
 
 <script src="js/jquery-3.2.1.min.js"></script>
