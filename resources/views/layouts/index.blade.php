@@ -21,7 +21,7 @@
         <div class="contents">
             <div>
                 <div class="users-page">
-                    <table class="table table-bordered">
+                    <table class="table table-bordered" style="width: 100%">
                         <thead>
                         <tr>
                             <th>ID</th>
@@ -32,16 +32,18 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="user in users">
-                            <th><% user.id %></th>
-                            <td><% user.name %> <br>
-                                <% user.age %> <br>
-                                <% user.address %>
+                            <th style="width: 10%"><% user.id %></th>
+                            <td style="width: 70%">
+                               <div> <% user.name %>  </div>
+                               <div><% user.age %> </div>
+                                <div><% user.address %></div>
                             </td>
-                            <td style="width: 30%"><img style="width: 100%;" src="uploads/<% user.link %>" alt=""></td>
+                            <td style="width: 20%"><img style="width: 100%;" src="uploads/<% user.link %>" alt=""></td>
 
-                            <td>
-                                <div><button ng-click="modal_edit(user)">Edit</button></div>
-                                <div><button  ng-click="delete(user)" >Del</button></div>
+                            <td style="width: 10%">
+                                <div ><button id="button_edit" ng-click="modal_edit(user)"><img style="width: 40%" src="images/edit.jpg" alt=""></button></div>
+                                <div style="height: 40px"></div>
+                                <div ><button id="button_edit" ng-click="delete(user)" ><img style="width: 50%" src="images/delete.png" alt=""></button></div>
                             </td>
 
                         </tr>
