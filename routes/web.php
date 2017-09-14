@@ -15,3 +15,5 @@ Route::get('/', function () {
     return view('layouts.index');
 });
  Route::resource('users','UserController');
+
+ Route::post('update', 'UserController@update');
