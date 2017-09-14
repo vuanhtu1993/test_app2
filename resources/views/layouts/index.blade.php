@@ -39,7 +39,10 @@
                             </td>
                             <td style="width: 30%"><img style="width: 100%;" src="uploads/<% user.link %>" alt=""></td>
 
-                            <td>EDIT/DELETE</td>
+                            <td>
+                                <div><button ng-click="modal_edit(user)">Edit</button></div>
+                                <div><button ng-click="">Del</button></div>
+                            </td>
 
                         </tr>
                         </tbody>
@@ -49,6 +52,7 @@
         </div>
     </div>
     @include('layouts.modal')
+    @include('layouts.modal_edit')
 </div>
 
 
