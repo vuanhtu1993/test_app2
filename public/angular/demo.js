@@ -58,16 +58,21 @@ myApp.controller('DemoController', function ($scope, $http, API) {
     // upload on file select or drop
     //FILES from directive
     $scope.upload = function () {
+        // if $scope.files != undefined thì gán thêm file vào obj
+        //if not thì ko có obj không có file vì bên controller dã kiểm tra hasFile
+        var obj = {};
+        obj.name = $scope.users.name;
+        obj.age = $scope.users.age;
+        obj.address = $scope.users.address;
+        if ($scope.files) {
+            //alert('xxx');
+            obj.file = $scope.files;
+        }
         $http({
             method : 'POST',
             url: 'users',
             headers: {'Content-Type': undefined},
-            data: {
-                file : $scope.files,
-                name : $scope.users.name,
-                age  : $scope.users.age,
-                address: $scope.users.address
-            },
+            data: obj,
             transformRequest: function (data, headersGetter) {
                 var fd = new FormData();
                 angular.forEach(data, function (value, key) {
@@ -95,7 +100,7 @@ myApp.controller('DemoController', function ($scope, $http, API) {
             headers: {'Content-Type': undefined},
             data: {
                 id : $scope.edit_user.id,
-                file : $scope.files_edit,
+                file : $scope.files_edit, //directive file-model(parameter)
                 name : $scope.edit_user.name,
                 age  : $scope.edit_user.age,
                 address: $scope.edit_user.address
