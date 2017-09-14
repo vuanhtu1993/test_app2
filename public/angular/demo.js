@@ -50,7 +50,7 @@ myApp.controller('DemoController', function ($scope, $http, API) {
     };
 
     $scope.modal_edit = function (user) {
-        $scope.edit_user = user;
+        $scope.edit_user = angular.copy(user);
       $('#myModal_edit').modal('show');
     };
 
