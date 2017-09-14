@@ -100,9 +100,24 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+
+        $user = User::find($request->id);
+
+        $user->name = $request->name;
+        $user->age = $request->age;
+        $user->address = $request->address;
+        if($request->hasFile('file')){
+            $file  = $request->file;
+            $destinationPath = 'uploads';
+            $file->move($destinationPath,$file->getClientOriginalName());
+            $user->link = $file->getClientOriginalName();
+            $user->save();
+        }
+        else {
+            $user->save();
+        }
     }
 
     /**
