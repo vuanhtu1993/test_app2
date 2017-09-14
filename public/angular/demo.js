@@ -32,7 +32,7 @@ myApp.controller('DemoController', function ($scope, $http, API) {
     };
     $scope.load();
 
-    //fix modal
+    //fix modal add
     $('#upload').change(function() {
         if($(this).val() !== "") {
             $("#imgThumbnail").css('display', 'block');
@@ -48,7 +48,7 @@ myApp.controller('DemoController', function ($scope, $http, API) {
       $('#myModal').modal('hide');
       $('#myModal_edit').modal('hide');
     };
-
+// editing modal
     $scope.modal_edit = function (user) {
         $scope.edit_user = angular.copy(user);
       $('#myModal_edit').modal('show');
@@ -87,7 +87,7 @@ myApp.controller('DemoController', function ($scope, $http, API) {
             console.log('Error status: ' + resp.status);
         });
     };
-
+// edit user
     $scope.update = function () {
         $http({
             method: 'POST',
@@ -117,6 +117,23 @@ myApp.controller('DemoController', function ($scope, $http, API) {
         }, function (resp) {
             console.log('Error status: ' + resp.status);
         })
+    };
+
+    //delete user
+    $scope.delete = function (user) {
+        $scope.user_delete = user;
+        if(confirm('Are you sure to delete?')){
+            $http({
+                method  :'DELETE',
+                url     :'users/'+$scope.user_delete.id,
+                data    :{
+                    id : $scope.user_delete.id
+                }
+            }).then(function (resp) {
+                console.log(resp);
+                $scope.load();
+            })}
+
     }
 
 });

@@ -41,7 +41,7 @@
 
                             <td>
                                 <div><button ng-click="modal_edit(user)">Edit</button></div>
-                                <div><button ng-click="">Del</button></div>
+                                <div><button  ng-click="delete(user)" >Del</button></div>
                             </td>
 
                         </tr>
