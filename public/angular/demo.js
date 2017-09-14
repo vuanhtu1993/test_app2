@@ -22,7 +22,6 @@ myApp.directive('fileModel', ['$parse', function ($parse) {
     };
 }]);
 myApp.controller('DemoController', function ($scope, $http, API) {
-
     $scope.load = function () {
       $http({
           method:   'GET',
@@ -42,18 +41,19 @@ myApp.controller('DemoController', function ($scope, $http, API) {
     });
 
     $scope.modal = function () {
-        // $('#imgThumbnail').attr('src', '');
-        // document.getElementById("upload").value = "";
-        // if ($("#imgThumbnail").attr('src') == '') {
-        //     $("#imgThumbnail").css('display', 'none');
-        // }
-        // $scope.files = null;
-
-      $('#myModal').modal('show');
+        console.log($scope.form_add);
+        $('#myModal').modal('show');
     };
     $scope.close_modal = function () {
       $('#myModal').modal('hide');
+      $('#myModal_edit').modal('hide');
     };
+
+    $scope.modal_edit = function (user) {
+        $scope.edit_user = user;
+      $('#myModal_edit').modal('show');
+    };
+
 
     // upload on file select or drop
     //FILES from directive
@@ -87,5 +87,36 @@ myApp.controller('DemoController', function ($scope, $http, API) {
             console.log('Error status: ' + resp.status);
         });
     };
+
+    $scope.update = function () {
+        $http({
+            method: 'POST',
+            url: 'update',
+            headers: {'Content-Type': undefined},
+            data: {
+                id : $scope.edit_user.id,
+                file : $scope.files_edit,
+                name : $scope.edit_user.name,
+                age  : $scope.edit_user.age,
+                address: $scope.edit_user.address
+            },
+            transformRequest: function (data, headersGetter) {
+                var fd = new FormData();
+                angular.forEach(data, function (value, key) {
+                    fd.append(key, value);
+                });
+                var headers = headersGetter();
+                delete headers['Content-Type'];
+                return fd;
+            }
+        }).then(function (resp) {
+            console.log(resp);
+            $scope.load();
+            $scope.close_modal();
+            // console.log('Success ' + resp.config.data.username + 'uploaded. Response: ' + resp.data);
+        }, function (resp) {
+            console.log('Error status: ' + resp.status);
+        })
+    }
 
 });
