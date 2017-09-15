@@ -14,7 +14,7 @@
                         <div class="col-sm-9">
                             {{--input name="name" ng-model="soundcloud.song.name" --}}
 
-                            <input type="text" class="form-control" id="name" name="name" ng-model="edit_user.name" required ng-minlength="1" ng-maxlength="50"/>
+                            <input type="text" class="form-control" id="name" name="name" ng-model="edit_user.name" required ng-minlength="1" ng-maxlength="100"/>
                             <span id="helpBlock2" class="help-block" ng-show="form_edit.name.$error.required ">Name must be required!</span>
                             <span id="helpBlock2" class="help-block" ng-show="form_edit.name.$error.minlength">Name must be in range 1 to 100!</span>
                             <span id="helpBlock2" class="help-block" ng-show="form_edit.name.$error.maxlength">Name must be in range 1 to 100!</span>
@@ -52,7 +52,7 @@
                                        class="form-control upload" file-model="files_edit" id="upload" ng-click="files_edit = null" >
                                 <img ng-show="form_edit.files.$valid" ngf-thumbnail="edit_user.image"
                                      class="img-thumbnail" id="imgThumbnail" width="100em" id="image">
-                                <img ng-show="files_edit == null" ng-src="uploads/<% edit_user.link %>"
+                                <img ng-show="files_edit == null || files_edit == undefined " ng-src="uploads/<% edit_user.link %>"
                                       class="img-thumbnail" id="imgThumbnail" width="100em" id="image">
 
                                 <div style="margin-top: 18px"><span id="helpBlock2" class="help-block colorMessages" ng-show="form_edit.image.$error.pattern">Image only support: png; jpg; jpeg; gif !</span></div>

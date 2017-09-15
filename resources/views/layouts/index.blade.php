@@ -21,17 +21,13 @@
         <div class="contents">
             <div>
                 <div class="users-page">
-
-                    <a href="#" ng-click="sortType = 'name'; sortReverse = !sortReverse">Name </a>
-                    <a href="#" ng-click="sortType = 'age'; sortReverse = !sortReverse">Age </a>
-                    <a href="#" ng-click="sortType = 'address'; sortReverse = !sortReverse">Address </a>
                     <table class="table table-bordered" style="display: block;overflow-x: auto;">
                         <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Name</th>
-                            <th>Address</th>
-                            <th>Age</th>
+                            <th><a href="#" ng-click="sortType = 'name'; sortReverse = !sortReverse">Name </a></th>
+                            <th><a href="#" ng-click="sortType = 'address'; sortReverse = !sortReverse">Address </a></th>
+                            <th><a href="#" ng-click="sortType = 'age'; sortReverse = !sortReverse">Age </a></th>
                             <th style="text-align: center">Image</th>
                             <th>Edit/Delete</th>
                         </tr>
@@ -66,7 +62,7 @@
 
 <script src="js/jquery-3.2.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+<script src="angular/angular.min.js"></script>
 <script src="angular/ng-file-upload-all.min.js"></script>
 <script src="angular/ng-file-upload-shim.min.js"></script>
 <script src="angular/ng-file-upload.min.js"></script>

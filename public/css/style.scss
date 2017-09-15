@@ -20,5 +20,42 @@
     padding-left: 9px;
   }
 }
+// index button edit and delete
+button#button_edit {
+  background: white;
+  border: none;
+}
+button#button_edit:hover{
 
-
+}
+.help-block {
+  display: block;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  color: #f30707 !important;
+}
+.layout_address{
+  overflow: hidden;
+  overflow-wrap: break-word ;
+  word-wrap: break-word;
+  text-overflow: ellipsis;
+  width: 35em;
+  font-size: 14px;
+  height: auto;
+}.layout_name{
+   overflow: hidden;
+   overflow-wrap: break-word ;
+   word-wrap: break-word;
+   text-overflow: ellipsis;
+   width: 22em;
+   font-size: 14px;
+   height: auto;
+}
+ // sort data
+a {
+  color: black;
+}
+a:hover, a:focus {
+  color: #2a6496;
+  text-decoration: none;
+}
