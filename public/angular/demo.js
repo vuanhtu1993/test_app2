@@ -1,7 +1,7 @@
-var link= $('meta[name="website"]').attr('content');
+var link = $('meta[name="website"]').attr('content');
 
 //inject directives and services.
-var myApp = angular.module('myApp', ['ngFileUpload'],function ($interpolateProvider) {
+var myApp = angular.module('myApp', ['ngFileUpload'], function ($interpolateProvider) {
     $interpolateProvider.startSymbol('<%');
     $interpolateProvider.endSymbol('%>');
 }).constant('API', link);
@@ -9,12 +9,12 @@ var myApp = angular.module('myApp', ['ngFileUpload'],function ($interpolateProvi
 myApp.directive('fileModel', ['$parse', function ($parse) {
     return {
         restrict: 'A',
-        link: function(scope, element, attrs) {
+        link: function (scope, element, attrs) {
             var model = $parse(attrs.fileModel);
             var modelSetter = model.assign;
 // get data file from input by FILES in directive
-            element.bind('change', function(){
-                scope.$apply(function(){
+            element.bind('change', function () {
+                scope.$apply(function () {
                     modelSetter(scope, element[0].files[0]);
                 });
             });
@@ -23,18 +23,18 @@ myApp.directive('fileModel', ['$parse', function ($parse) {
 }]);
 myApp.controller('DemoController', function ($scope, $http, API) {
     $scope.load = function () {
-      $http({
-          method:   'GET',
-          url:      'users'
-      }).then(function (response) {
-          $scope.users = response.data;
-      })
+        $http({
+            method: 'GET',
+            url: 'users'
+        }).then(function (response) {
+            $scope.users = response.data;
+        })
     };
     $scope.load();
 
     //fix modal add
-    $('#upload').change(function() {
-        if($(this).val() !== "") {
+    $('#upload').change(function () {
+        if ($(this).val() !== "") {
             $("#imgThumbnail").css('display', 'block');
         }
         $scope.files = null;
@@ -42,16 +42,18 @@ myApp.controller('DemoController', function ($scope, $http, API) {
 
     $scope.modal = function () {
         console.log($scope.form_add);
+        $scope.form_add.$setUntouched();
         $('#myModal').modal('show');
     };
     $scope.close_modal = function () {
-      $('#myModal').modal('hide');
-      $('#myModal_edit').modal('hide');
+        $('#myModal').modal('hide');
+        $('#myModal_edit').modal('hide');
     };
 // editing modal
     $scope.modal_edit = function (user) {
+        console.log($scope.files_edit);
         $scope.edit_user = angular.copy(user);
-      $('#myModal_edit').modal('show');
+        $('#myModal_edit').modal('show');
     };
 
 
@@ -68,77 +70,88 @@ myApp.controller('DemoController', function ($scope, $http, API) {
             //alert('xxx');
             obj.file = $scope.files;
         }
-        $http({
-            method : 'POST',
-            url: 'users',
-            headers: {'Content-Type': undefined},
-            data: obj,
-            transformRequest: function (data, headersGetter) {
-                var fd = new FormData();
-                angular.forEach(data, function (value, key) {
-                    fd.append(key, value);
-                });
-                var headers = headersGetter();
-                delete headers['Content-Type'];
-                return fd;
-            }
-        }).then(function (resp) {
-            $scope.load();
-            $scope.close_modal();
-            $scope.users.image = '';
-            $scope.files = null;
-            console.log('Success ' + resp.config.data.username + 'uploaded. Response: ' + resp.data);
-        }, function (resp) {
-            console.log('Error status: ' + resp.status);
-        });
+        // Execute to check form_add.$valid one more time
+        if ($scope.form_add.$valid) {
+            $http({
+                method: 'POST',
+                url: 'users',
+                headers: {'Content-Type': undefined},
+                data: obj,
+                transformRequest: function (data, headersGetter) {
+                    var fd = new FormData();
+                    angular.forEach(data, function (value, key) {
+                        fd.append(key, value);
+                    });
+                    var headers = headersGetter();
+                    delete headers['Content-Type'];
+                    return fd;
+                }
+            }).then(function (resp) {
+                $scope.load();
+                $scope.close_modal();
+                $scope.files = null;
+               // $scope.form_add = null; can not set $scope.form_add =null or ="";
+
+                console.log('Success ' + resp.config.data.username + 'uploaded. Response: ' + resp.data);
+            }, function (resp) {
+                console.log('Error status: ' + resp.status);
+            });
+        }
+
     };
 // edit user
     $scope.update = function () {
-        $http({
-            method: 'POST',
-            url: 'update',
-            headers: {'Content-Type': undefined},
-            data: {
-                id : $scope.edit_user.id,
-                file : $scope.files_edit, //directive file-model(parameter)
-                name : $scope.edit_user.name,
-                age  : $scope.edit_user.age,
-                address: $scope.edit_user.address
-            },
-            transformRequest: function (data, headersGetter) {
-                var fd = new FormData();
-                angular.forEach(data, function (value, key) {
-                    fd.append(key, value);
-                });
-                var headers = headersGetter();
-                delete headers['Content-Type'];
-                return fd;
-            }
-        }).then(function (resp) {
-            console.log(resp);
-            $scope.load();
-            $scope.close_modal();
-            // console.log('Success ' + resp.config.data.username + 'uploaded. Response: ' + resp.data);
-        }, function (resp) {
-            console.log('Error status: ' + resp.status);
-        })
+        var object = {};
+        object.id = $scope.edit_user.id;
+        object.name = $scope.edit_user.name;
+        object.age = $scope.edit_user.age;
+        object.address = $scope.edit_user.address;
+        if ($scope.files_edit) {
+            object.file = $scope.files_edit;//directive file-model(parameter)
+        }
+        //check validation on more time before sent http
+        if ($scope.form_edit.$valid) {
+            $http({
+                method: 'POST',
+                url: 'update',
+                headers: {'Content-Type': undefined},
+                data: object,
+                transformRequest: function (data, headersGetter) {
+                    var fd = new FormData();
+                    angular.forEach(data, function (value, key) {
+                        fd.append(key, value);
+                    });
+                    var headers = headersGetter();
+                    delete headers['Content-Type'];
+                    return fd;
+                }
+            }).then(function (resp) {
+                console.log(resp);
+                $scope.load();
+                $scope.close_modal();
+                // console.log('Success ' + resp.config.data.username + 'uploaded. Response: ' + resp.data);
+            }, function (resp) {
+                console.log('Error status: ' + resp.status);
+            })
+        }
+
     };
 
     //delete user
     $scope.delete = function (user) {
         $scope.user_delete = user;
-        if(confirm('Are you sure to delete?')){
+        if (confirm('Are you sure to delete?')) {
             $http({
-                method  :'DELETE',
-                url     :'users/'+$scope.user_delete.id,
-                data    :{
-                    id : $scope.user_delete.id
+                method: 'DELETE',
+                url: 'users/' + $scope.user_delete.id,
+                data: {
+                    id: $scope.user_delete.id
                 }
             }).then(function (resp) {
                 console.log(resp);
                 $scope.load();
-            })}
-
+            })
+        }
     }
 
 });
