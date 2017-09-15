@@ -41,15 +41,16 @@ class UserController extends Controller
             'name'=>'required|max:100',
             'age'=>'required|numeric|min:0|max:100',
             'address'=>'required|max:300',
+            'file'=>'image|mimes:jpeg,png,gif|max:10240',
 
         ],[
             'name.required'=>'Type name product please',
             'name.max'=>'Name product maximum 100 digit',
-            'age.required'=>'Type price product please',
-            'age.numeric'=>'Price product is number',
-            'age.max'=>'Price product maximum 10 digit',
-            'address.required'=>'Type description product please',
-            'address.max'=>'Description maximum 300 digit',
+            'age.required'=>'Age price product please',
+            'age.numeric'=>'Age product is number',
+            'age.max'=>'Age product maximum 10 digit',
+            'address.required'=>'Require address ',
+            'address.max'=>'address maximum 300 digit',
         ]);
 
         $user = new User();
@@ -102,7 +103,21 @@ class UserController extends Controller
      */
     public function update(Request $request)
     {
+        $this->validate($request,[
+            'name'=>'required|max:100',
+            'age'=>'required|numeric|min:0|max:100',
+            'address'=>'required|max:300',
+            'file'=>'image|mimes:jpeg,png,gif|max:10240',
 
+        ],[
+            'name.required'=>'Type name product please',
+            'name.max'=>'Name product maximum 100 digit',
+            'age.required'=>'Age price product please',
+            'age.numeric'=>'Age product is number',
+            'age.max'=>'Age product maximum 10 digit',
+            'address.required'=>'Require address ',
+            'address.max'=>'address maximum 300 digit',
+        ]);
         $user = User::find($request->id);
 
         $user->name = $request->name;
