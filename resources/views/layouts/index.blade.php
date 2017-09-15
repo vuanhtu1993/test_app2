@@ -21,23 +21,29 @@
         <div class="contents">
             <div>
                 <div class="users-page">
-                    <table class="table table-bordered" style="width: 100%">
+
+                    <a href="#" ng-click="sortType = 'name'; sortReverse = !sortReverse">Name </a>
+                    <a href="#" ng-click="sortType = 'age'; sortReverse = !sortReverse">Age </a>
+                    <a href="#" ng-click="sortType = 'address'; sortReverse = !sortReverse">Address </a>
+                    <table class="table table-bordered" style="display: block;overflow-x: auto;">
                         <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Information</th>
+                            <th>Name</th>
+                            <th>Address</th>
+                            <th>Age</th>
                             <th style="text-align: center">Image</th>
                             <th>Edit/Delete</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="user in users">
-                            <th style="width: 10%"><% user.id %></th>
-                            <td style="width: 70%">
-                               <div> <% user.name %>  </div>
-                               <div><% user.age %> </div>
-                                <div><% user.address %></div>
+                        <tr ng-repeat="user in users | orderBy:sortType:sortReverse ">
+                            <th style=""><% user.id %></th>
+                            <td style=""><div class="layout_name" ><b>Name : </b> <% user.name %>  </div></td>
+                            <td style="" >
+                                <div class="layout_address" ><b>Address : </b><% user.address %></div>
                             </td>
+                            <td ><div style="width: 70px"><b>Age : </b><% user.age %> </div></td>
                             <td style="width: 20%"><img style="width: 100%;" src="uploads/<% user.link %>" alt=""></td>
 
                             <td style="width: 10%">
@@ -65,21 +71,6 @@
 <script src="angular/ng-file-upload-shim.min.js"></script>
 <script src="angular/ng-file-upload.min.js"></script>
 <script src="angular/demo.js"></script>
-<script>
-    function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
 
-            reader.onload = function (e) {
-                $('#blah')
-                    .attr('src', e.target.result)
-                    .width(150)
-                    .height(200);
-            };
-
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-</script>
 </body>
 </html>

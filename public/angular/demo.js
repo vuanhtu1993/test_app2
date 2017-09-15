@@ -152,6 +152,10 @@ myApp.controller('DemoController', function ($scope, $http, API) {
                 $scope.load();
             })
         }
-    }
+    };
+    
+    // sort data
+    $scope.sortType     = 'name';
+    $scope.sortReverse  = false;
 
 });
