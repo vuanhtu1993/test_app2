@@ -53,4 +53,7 @@ a:hover, a:focus {
   color: #2a6496;
   text-decoration: none; }
 
+#button_edit:hover {
+  border: 1px solid; }
+
 /*# sourceMappingURL=style.css.map */
