@@ -51,6 +51,9 @@ myApp.controller('DemoController', function ($scope, $http, API) {
     };
 // editing modal
     $scope.modal_edit = function (user) {
+       // console.log($scope.form_edit);
+        // console.log($scope.files_edit);
+        $scope.files_edit = null;   // fix bug 1 show image at edit form
         console.log($scope.files_edit);
         $scope.edit_user = angular.copy(user);
         $('#myModal_edit').modal('show');
@@ -109,6 +112,8 @@ myApp.controller('DemoController', function ($scope, $http, API) {
         if ($scope.files_edit) {
             object.file = $scope.files_edit;//directive file-model(parameter)
         }
+        console.log($scope.files_edit);
+        console.log(object.file);
         //check validation on more time before sent http
         if ($scope.form_edit.$valid) {
             $http({
