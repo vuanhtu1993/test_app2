@@ -101,7 +101,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         $this->validate($request,[
             'name'=>'required|max:100',
@@ -118,7 +118,7 @@ class UserController extends Controller
             'address.required'=>'Require address ',
             'address.max'=>'address maximum 300 digit',
         ]);
-        $user = User::find($request->id);
+        $user = User::find($id);
 
         $user->name = $request->name;
         $user->age = $request->age;

@@ -16,4 +16,4 @@ Route::get('/', function () {
 });
  Route::resource('users','UserController');
 
- Route::post('update', 'UserController@update');
+ Route::post('update/{id}', 'UserController@update');

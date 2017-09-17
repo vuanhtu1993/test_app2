@@ -118,7 +118,7 @@ myApp.controller('DemoController', function ($scope, $http, API) {
         if ($scope.form_edit.$valid) {
             $http({
                 method: 'POST',
-                url: 'update',
+                url: 'update/'+ $scope.edit_user.id,
                 headers: {'Content-Type': undefined},
                 data: object,
                 transformRequest: function (data, headersGetter) {
@@ -132,6 +132,7 @@ myApp.controller('DemoController', function ($scope, $http, API) {
                 }
             }).then(function (resp) {
                 console.log(resp);
+                console.log(object);
                 $scope.load();
                 $scope.close_modal();
                 // console.log('Success ' + resp.config.data.username + 'uploaded. Response: ' + resp.data);
