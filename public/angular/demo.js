@@ -56,6 +56,8 @@ myApp.controller('DemoController', function ($scope, $http, API) {
         $scope.files_edit = null;   // fix bug 1 show image at edit form
         console.log($scope.files_edit);
         $scope.edit_user = angular.copy(user);
+        //fix bug 2 cant show edit_users.age
+        $scope.edit_user.age = Number($scope.edit_user.age);
         $('#myModal_edit').modal('show');
     };
 
