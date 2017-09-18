@@ -22,7 +22,7 @@
             {{--search--}}
             <div class="col-xs-12 col-sm-8 col-md-8">
             <div class="search-bar" >
-                <input type="text" placeholder="Search" ng-model="search">
+                <input type="text" placeholder="Search" ng-model="search" ng-model-options="{ debounce: 500 }">
             </div>
             </div>
             {{--end search--}}
