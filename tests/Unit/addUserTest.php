@@ -10,13 +10,18 @@ class AddUserTest extends TestCase{
     protected function assertFalseStatus($request){
 
         $response = $this->call('POST','users',$request);
+        $data = json_decode($response->getContent(),true);
+        $this->assertEquals(302,$response->status());
+        if ($data[0]['status'] == false){
+            $this->assertTrue(true);
+        }
+        else $this->assertFalse(false);
 
-        $this->assertEquals(200,$response->status());
 
     }
 //    public function testAddUser(){
 //        $request = [
-//            'name'=>'Anh Tussssssss',
+//            'name'=>'Anh fdifidifsdiieigief',
 //            'age'=>'24',
 //            'address'=>'fsdjhghivhaisdhf',
 //        ];

@@ -14,25 +14,10 @@ class UserTest extends TestCase
      *
      * @return void
      */
-    public function testGetUsers()
+    public function testBasicTest()
     {
-        $response = $this->call('GET','users');
-        $this->assertNotEmpty($response);
-        $data = json_decode($response->getContent());
-        $this->assertEquals(200,$response->status());
-        $this->assertEquals(gettype($data),'array');
-        $this->assertNotEmpty($data);
-        $this->assertTrue(isset($data[0]));
-        if($data[0]->id == 4){
-            $this->assertTrue(true);
+        $response = $this->get('/');
 
-        }
-//        if ($data[''] == 'fawafsffd'){
-//            $this->assertEquals(true);
-//        }
-//        else $this->assertEquals(false);
-
-
-
+        $response->assertStatus(200);
     }
 }
