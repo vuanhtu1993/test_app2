@@ -10,9 +10,9 @@
                 <span class="icon-bar"></span>
             </button>
 
-                <a style="padding-top: 0; padding-left: 2em; " class="navbar-brand" href="#">
-                    <img style="width: 50px; float: left" src="images/scuti-logo.png" alt="">
-                </a>
+            <a style="padding-top: 0; padding-left: 2em; " class="navbar-brand" href="#">
+                <img style="width: 50px; float: left" src="images/scuti-logo.png" alt="">
+            </a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -20,16 +20,19 @@
 
             </ul>
             {{--search--}}
-            <div class="col-xs-12 col-sm-8 col-md-8">
-            <div class="search-bar" >
-                <input type="text" placeholder="Search" ng-model="search" ng-model-options="{ debounce: 500 }">
-            </div>
-            </div>
-            {{--end search--}}
-            <ul class="nav navbar-nav navbar-right">
-                <li><a style="color: rgb(89, 205, 227); font-weight: bold" href="#" ng-click="modal()">Add +</a></li>
 
-            </ul>
+                <div class="col-xs-12 col-sm-8 col-md-8">
+                    <div class="search-bar">
+                        <input type="text" placeholder="Search" ng-model="search" ng-model-options="{ debounce: 500 }">
+                    </div>
+                </div>
+
+            {{--end search--}}
+            <div class="nav navbar-nav navbar-right">
+                <div class="addplus">
+                    <a style="color: rgb(89, 205, 227); font-weight: bold" href="#" ng-click="modal()">Add +</a>
+                </div>
+            </div>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
