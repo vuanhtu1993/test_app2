@@ -132,7 +132,6 @@ class UserController extends Controller
             $user->save();
         }
         else {
-
             $user->save();
         }
     }
