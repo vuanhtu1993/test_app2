@@ -103,6 +103,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $this->validate($request,[
             'name'=>'required|max:100',
             'age'=>'required|numeric|min:0|max:100',
@@ -131,6 +132,7 @@ class UserController extends Controller
             $user->save();
         }
         else {
+
             $user->save();
         }
     }
