@@ -14,7 +14,7 @@ class RouteUserTest extends TestCase
      * @return void
      * @return array
      */
-    public function testAPIpage(){
+    public function testApiPage(){
         $response = $this->call('GET','users');
         $this->assertEquals(200,$response->status());
     }

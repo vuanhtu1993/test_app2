@@ -15,15 +15,15 @@ class EditUserTest extends TestCase
     //not run into database
     use DatabaseTransactions;
 
-    public function testEditValid()
+    public function testEditUserValid()
     {
         $request = [
-            'name' => 'anh tus scuti',
-            'age' => '24',
-            'address' => 'afjiodjsofjdiojgojsgjsogj',
+            'name' => 'ta hieu scuti',
+            'age' => '23',
+            'address' => 'nga tu so',
         ];
 
-        $user = factory(User::class)->create([
+        $user = factory(\App\User::class)->create([
             'name'=>'Anh Tus',
             'age'=>'24',
             'address'=>'hoang hoa tham']);
@@ -34,12 +34,12 @@ class EditUserTest extends TestCase
     }
 
     // validation all attr is empty
-    public function testEditEmpty()
+    public function testEditAgeEmpty()
     {
         $request = [
-            'name'=>'',
+            'name'=>'anh tus scuti',
             'age'=> '',
-            'address'=>''
+            'address'=>'nguyen phong sac'
         ];
         // create faker database
     $user = factory(User::class)->create([
@@ -56,17 +56,15 @@ class EditUserTest extends TestCase
 
     public function testEditWrongTypeAge(){
         $request = [
-            'name'=>'anh tus',
-            'age'=> '24e',
-            'address'=>'nguyen phong sac'
+            'name'=>'ta hieu',
+            'age'=> '23e',
+            'address'=>'nguyen phong sac123'
         ];
 
         $user = factory(User::class)->create([
             'name'=>'Anh Tus',
             'age'=>'24',
             'address'=>'hoang hoa tham']);
-
-
         $user_id = $user->id;
         $this->call('POST','update/'. $user_id, $request);
         $this->assertDatabaseMissing('users',$request);
@@ -103,7 +101,21 @@ class EditUserTest extends TestCase
         $this->call('POST','update/'. $user_id, $request);
         $this->assertDatabaseMissing('users',$request);
     }
+    public function testEditNameAndAddressNull(){
+        $request = [
+            'name' => '',
+            'age' => '24',
+            'address' => '',
+        ];
+        $user = factory(User::class)->create([
+            'name'=>'Anh Tus',
+            'age'=>'24',
+            'address'=>'hoang hoa tham']);
 
+        $user_id = $user->id;
+        $this->call('POST','update/'. $user_id, $request);
+        $this->assertDatabaseMissing('users',$request);
+    }
 
 
 }
