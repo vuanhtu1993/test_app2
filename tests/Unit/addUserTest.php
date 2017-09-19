@@ -1,39 +1,40 @@
 <?php
 namespace Test\Unit;
-
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Test\Unit;
 use Tests\TestCase;
 
+/**
+ * Class AddUserTest
+ * @package Test\Unit
+ */
 class AddUserTest extends TestCase{
 
+    use DatabaseTransactions; //not run into database
 
-    protected function assertFalseStatus($request){
 
+    public function testAddUserValid(){
+        $request = [
+            'name'=>'Anh Tu scuti ofdafdfiw',
+            'age'=>'80',
+            'address'=>'34546789uygfsdfbcghnf',
+        ];
         $response = $this->call('POST','users',$request);
-        $data = json_decode($response->getContent(),true);
-        $this->assertEquals(302,$response->status());
-        if ($data[0]['status'] == false){
-            $this->assertTrue(true);
-        }
-        else $this->assertFalse(false);
-
+        $this->assertDatabaseHas('users',$request);
 
     }
-//    public function testAddUser(){
-//        $request = [
-//            'name'=>'Anh fdifidifsdiieigief',
-//            'age'=>'24',
-//            'address'=>'fsdjhghivhaisdhf',
-//        ];
-//        $response = $this->call('POST','users',$request);
-//        $data = json_decode($response->getContent(),true);
-//        $this->assertEquals(200,$response->status());
-//        if ($data[0]['status'] == false){
-//            $this->assertTrue(true);
-//        }
-//            else $this->assertFalse(false);
-//
-//    }
+//test validation address age null
+    public function testAddAgeEmpty()
+    {
+        $request = [
+            'name'=>'Anh tussssss',
+            'age'=>'',
+            'address'=>'wvdvwidvergahvvisdivdvsbvsi'
+        ];
+        $this->call('POST','users',$request);
+        $this->assertDatabaseMissing('users',$request);
+    }
 
     //test validation age wrong type
     public function testAddUser2(){
@@ -42,28 +43,42 @@ class AddUserTest extends TestCase{
             'age'=>'24e',
             'address'=>'fsdjhghivhaisdhf',
         ];
-        $this->assertFalseStatus($request);
+        $response = $this->call('POST','users',$request);
+        $this->assertDatabaseMissing('users',$request);
 
     }
 
-    //test validation name and address longer than allowed
+    //test validation address longer than allowed (301 )
     public function testAddUser3(){
         $request = [
-            'name'=>'11234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890',
+            'name'=>'11234567890129012345678901234567890',
             'age'=>'24',
             'address'=>'1123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890',
         ];
-        $this->assertFalseStatus($request);
+        $response = $this->call('POST','users',$request);
+        $this->assertDatabaseMissing('users',$request);
+    }
+
+    //test validation name address longer than allowed (101 )
+    public function testAddUser4(){
+        $request = [
+            'name'=>'1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890',
+            'age'=>'24',
+            'address'=>'11234567890129012345678901234567890',
+        ];
+        $response = $this->call('POST','users',$request);
+        $this->assertDatabaseMissing('users',$request);
     }
 //test validation name and address null
-    public function testAddUser4()
+    public function testAddUser5()
     {
         $request = [
             'name'=>'',
             'age'=>'24',
             'address'=>'',
         ];
-        $this->assertFalseStatus($request);
+        $response = $this->call('POST','users',$request);
+        $this->assertDatabaseMissing('users',$request);
     }
 }
 ?>
