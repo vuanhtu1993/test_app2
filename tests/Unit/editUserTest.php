@@ -1,33 +1,72 @@
 <?php
 
 namespace Test\Unit;
-
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+use App\User;
 use Tests\TestCase;
 
+/**
+ * Class EditUserTest
+ * @package Test\Unit
+ */
 class EditUserTest extends TestCase
 {
+    //not run into database
+    use DatabaseTransactions;
 
-    public function test()
+    public function testEditUserValid()
     {
         $request = [
-            'name' => '1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890',
-            'age' => '24',
-            'address' => '123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890',
+            'name' => 'ta hieu scuti',
+            'age' => '23',
+            'address' => 'nga tu so',
         ];
-        $response = $this->call('POST', 'update/10', $request);
-        $this->assertDatabaseHas('users',
-            ['name' => $request['name'],
-                'age' => $request['age'],
-                'address' => $request['address']]);
+
+        $user = factory(\App\User::class)->create([
+            'name'=>'Anh Tus',
+            'age'=>'24',
+            'address'=>'hoang hoa tham']);
+        $user_id = $user->id;
+        $response = $this->call('POST', 'update/'.$user_id, $request);
+        $this->assertDatabaseHas('users',$request);
 
     }
+
+    // validation all attr is empty
+    public function testEditAgeEmpty()
+    {
+        $request = [
+            'name'=>'anh tus scuti',
+            'age'=> '',
+            'address'=>'nguyen phong sac'
+        ];
+        // create faker database
+    $user = factory(User::class)->create([
+        'name'=>'Anh Tus',
+        'age'=>'24',
+        'address'=>'hoang hoa tham']);
+
+        /** @var number $user_id */
+        $user_id = $user->id;
+       $this->call('POST','update/'. $user_id, $request);
+       $this->assertDatabaseMissing('users',$request);
+    }
+
+
     public function testEditWrongTypeAge(){
         $request = [
-            'name' => 'anh tusssss12',
-            'age' => '24e',
-            'address' => 'fhiafiuhaduifhifhi',
+            'name'=>'ta hieu',
+            'age'=> '23e',
+            'address'=>'nguyen phong sac123'
         ];
-        $response = $this->call('POST', 'update/12', $request);
+
+        $user = factory(User::class)->create([
+            'name'=>'Anh Tus',
+            'age'=>'24',
+            'address'=>'hoang hoa tham']);
+        $user_id = $user->id;
+        $this->call('POST','update/'. $user_id, $request);
         $this->assertDatabaseMissing('users',$request);
     }
 
@@ -37,18 +76,47 @@ class EditUserTest extends TestCase
             'age' => '24',
             'address' => 'fhiafiuhaduifhifhi',
         ];
-        $response = $this->call('POST', 'update/12', $request);
+        $user = factory(User::class)->create([
+            'name'=>'Anh Tus',
+            'age'=>'24',
+            'address'=>'hoang hoa tham']);
+
+
+        $user_id = $user->id;
+        $this->call('POST','update/'. $user_id, $request);
         $this->assertDatabaseMissing('users',$request);
     }
     public function testEditAddressLongerAllowed(){
         $request = [
-            'name' => '1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890',
+            'name' => '123456789012789012345678901234567890',
             'age' => '24',
             'address' => '1123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890',
         ];
-        $this->call('POST','update/12',$request);
+        $user = factory(User::class)->create([
+            'name'=>'Anh Tus',
+            'age'=>'24',
+            'address'=>'hoang hoa tham']);
+
+        $user_id = $user->id;
+        $this->call('POST','update/'. $user_id, $request);
         $this->assertDatabaseMissing('users',$request);
     }
+    public function testEditNameAndAddressNull(){
+        $request = [
+            'name' => '',
+            'age' => '24',
+            'address' => '',
+        ];
+        $user = factory(User::class)->create([
+            'name'=>'Anh Tus',
+            'age'=>'24',
+            'address'=>'hoang hoa tham']);
+
+        $user_id = $user->id;
+        $this->call('POST','update/'. $user_id, $request);
+        $this->assertDatabaseMissing('users',$request);
+    }
+
 
 }
 
