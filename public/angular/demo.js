@@ -49,9 +49,9 @@ myApp.controller('DemoController', function ($scope, $http, API) {
         $('#myModal').modal('hide');
         $('#myModal_edit').modal('hide');
     };
-// editing modal
+    // editing modal
     $scope.modal_edit = function (user) {
-       // console.log($scope.form_edit);
+        // console.log($scope.form_edit);
         // console.log($scope.files_edit);
         $scope.files_edit = null;   // fix bug 1 show image at edit form
         console.log($scope.files_edit);
@@ -100,6 +100,10 @@ myApp.controller('DemoController', function ($scope, $http, API) {
                 console.log('Success ' + resp.config.data.username + 'uploaded. Response: ' + resp.data);
             }, function (resp) {
                 console.log('Error status: ' + resp.status);
+                console.log(resp.data.file);
+                // get data from resp fail from server
+                $scope.users.error_file = resp.data.file;
+
             });
         }
 
@@ -139,7 +143,9 @@ myApp.controller('DemoController', function ($scope, $http, API) {
                 $scope.close_modal();
                 // console.log('Success ' + resp.config.data.username + 'uploaded. Response: ' + resp.data);
             }, function (resp) {
-                console.log('Error status: ' + resp.status);
+                console.log('Error status:' + resp.status);
+                //get error from database by resp.data.file
+                $scope.edit_user.error_file = resp.data.file;
             })
         }
 
