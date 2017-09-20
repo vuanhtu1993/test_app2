@@ -9,11 +9,21 @@
             </div>
             <div class="modal-body">
                 <form name="form_add" class="form-horizontal">
+                    {{--declare error file--}}
+                    <div class="form-group">
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-9">
+                            <div id="helpBlock2" class="help-block" style="color: red" ng-show="users.error_file" ng-repeat="error_file in users.error_file">
+                                <% error_file %>
+                            </div>
+                        </div>
+                    </div>
+                    {{--end declare error file--}}
                     <div class="form-group">
                         <label for="inputEmail3" class="col-sm-3 control-label">Name</label>
                         <div class="col-sm-9">
                             {{--input name="name" ng-model="soundcloud.song.name" --}}
-                            <input type="text" class="form-control" id="name" name="name" ng-model="users.name" required ng-minlength="1" ng-maxlength="100" />
+                            <input type="text" class="form-control" id="name" name="name" ng-model="users.name" required ng-minlength="1" ng-maxlength="100" autocomplete="off"/>
                             <span id="helpBlock2" class="help-block" ng-show="form_add.name.$error.required && form_add.name.$touched">Name must be required!</span>
                             <span id="helpBlock2" class="help-block" ng-show="form_add.name.$error.minlength">Name must be in range 1 to 100!</span>
                             <span id="helpBlock2" class="help-block" ng-show="form_add.name.$error.maxlength">Name must be in range 1 to 100!</span>
